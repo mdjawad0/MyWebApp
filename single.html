@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #box {
+      width: 80vw; /* 80% of viewport width */
+      height: 433px; /* Increased height */
+      background-color: #24252f;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: calc(100% / 5); /* Equal width for 5 bars */
+      height: 0;
+      background-color: #800080;
+      position: absolute;
+      bottom: 0;
+      transition: height 0.5s ease-in-out; /* Smooth transition effect */
+      margin: 15px; /* Add margin on both sides */
+    }
+
+    #bar1 {
+      left: 0;
+      background-color: #9b119b;
+    }
+
+    #bar2 {
+      left: calc(100% / 5);
+      background-color: #f548a6fc;
+    }
+
+    #bar3 {
+      left: calc(100% / 5 * 2);
+      background-color: #f98597f2;
+    }
+
+    #bar4 {
+      left: calc(100% / 5 * 3);
+      background-color: #eba82c;
+    }
+
+    #bar5 {
+      left: calc(100% / 5 * 4);
+      width: calc(100% / 5 - 30px); /* Reduce the width by 30px (15px on each side) */
+      background-color: #e3e33d;
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .controls button {
+      margin: 25px 70px; /* Add horizontal margin between buttons */
+      padding: 10px 45px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      color: #fff;
+      border-radius: 0; /* Remove border radius */
+    }
+
+    #startBtn {
+      background-color: green;
+    }
+
+    #resetBtn {
+      background-color: purple;
+    }
+
+    #stopBtn {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="box">
+      <div id="bar1" class="bar"></div>
+      <div id="bar2" class="bar"></div>
+      <div id="bar3" class="bar"></div>
+      <div id="bar4" class="bar"></div>
+      <div id="bar5" class="bar"></div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="resetBtn">Reset</button>
+      <button id="stopBtn">Stop</button>
+    </div>
+  </div>
+
+  <script>
+    var bars = document.getElementsByClassName('bar');
+    var startBtn = document.getElementById('startBtn');
+    var resetBtn = document.getElementById('resetBtn');
+    var stopBtn = document.getElementById('stopBtn');
+    var animationInterval;
+
+    function animateBars() {
+      for (var i = 0; i < bars.length; i++) {
+        var bar = bars[i];
+        var height = Math.floor(Math.random() * 300) + 100; // Random height between 100 and 400
+        bar.style.height = height + 'px';
+      }
+    }
+
+    function startAnimation() {
+      animationInterval = setInterval(animateBars, Math.floor(Math.random() * 1000) + 500); // Random interval between 500ms and 1500ms
+    }
+
+
+    function resetAnimation() {
+      clearInterval(animationInterval);
+      for (var i = 0; i < bars.length; i++) {
+        var bar = bars[i];
+        var maxHeight = Math.floor(300) + 100; // Random height between 100 and 400
+        bar.style.height = maxHeight + 'px';
+      }
+    }
+
+
+    function stopAnimation() {
+      clearInterval(animationInterval);
+    }
+
+    startBtn.addEventListener('click', startAnimation);
+    resetBtn.addEventListener('click', resetAnimation);
+    stopBtn.addEventListener('click', stopAnimation);
+  </script>
+</body>
+</html>
